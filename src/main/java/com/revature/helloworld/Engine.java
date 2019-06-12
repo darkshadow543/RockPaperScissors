@@ -88,6 +88,34 @@ public class Engine {
 		}
 	}
 	
+	public void playSingle() {
+		String input = "";
+		System.out.println("Welcome to Rock Paper Scissors\n");
+		System.out.println("Player1, please enter your name:");
+		input = scanner.nextLine();
+		player1.setName(input);
+		player2 = new CompPlayer();
+		player2.setName("Comp");
+		while(true) {
+			this.makeChoice(player1);
+			player2.getChoice();
+			winner = this.determineWinner();
+			if (winner == null) {
+				System.out.println("Tie");
+			} else {
+				System.out.println(winner.getName() + " wins!");
+				winner.addWin();
+			}
+			System.out.println("Scoreboard");
+			System.out.println(player1.getName() + ": " + player1.getWins());
+			System.out.println(player2.getName() + ": " + player2.getWins() + "\n\n");
+			if (this.askQuit()) {
+				System.out.println("Thanks for Playing!");
+				break;
+			}
+		}
+	}
+	
 	//Selects player who won, returns null if it is a tie
 	public Player determineWinner() {
 		if (player1.getChoice() == player2.getChoice()) {
